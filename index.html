@@ -4,10 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Group Seminar by Jiali Duan</title>
+		<title>Meeting on 10-30</title>
 
-		<meta name="description" content="Group Seminar by Jiai Duan on 
-		reinforcement learning">
+		<meta name="description" content="Meeting">
 		<meta name="author" content="Jiali Duan">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,132 +41,62 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Reinforcement Learning</h1>
-					<h3>and its interesting applications</h3>
+					<h3>Reinforcement Learning Proposals</h3>
+					<ul>
+						<li><a href="">Robot Manipulation</a></li>
+						<li><a href="">Indoor Navigation</a></li>
+						<li><a href="">Embodied Question Answering</a></li>
+						<li><a href="http://www.stefanosnikolaidis.net/">Human Robot Interaction</a></li>
+
+					</ul>
 					<p>
-						<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">Oct.10, 2018</a></small>
+						<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">Oct.30, 2018</a></small>
 					</p>
 				</section>
 
-		
-				<!-- Example of nested vertical slides -->
 				<section>
 					<section>
-						<h3>What's reinforcement learning?</h3>
-						<p><span class="fragment highlight-red">End-to-end </span> learning for <span class="fragment highlight-blue">Sequential Decision Making</span></p>
-						<br>
-						<p class="fragment"><img width="" height="" data-src="present-10-8/end-to-end.png" alt="Down arrow"></p>
-					
+						<h3>Robot Manipulation</h3>
+						<table>
+								<tr>
+									<th><video height="50%" data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/bimanual-lifting.mp4"></video></th>
+									<th><video height="50%"data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/block-lifting.mp4"></video></th>
+									<th><video height="50%" data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/block-stacking.mp4"></video></th>	
+								</tr>
+								<tr>
+									<th><video height="50%" data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/nut-placing.mp4"></video> </th>
+									<th><video height="50%" data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/peg-in-hole.mp4"></video> </th>
+									<th><video height="50%" data-autoplay src="https://surreal.stanford.edu/img/roboticssuite/pick-and-place.mp4"></video> </th>
+								</tr>
+						</table>
 					</section>
 					<section>
-						<h4>What does end-to-end mean for</h4>
-						<h4>Sequential Decision Making?</span></h4>
-						<p class="fragment"><img width="60%" height="60%" data-src="present-10-8/sequential-making.png" alt="Down arrow"></p>
+						<h3>PPO/DDPG Benchmarking</h3>
+						<table>
+							<tr>
+								<th><img  data-src="https://raw.githubusercontent.com/SurrealAI/surreal/master/.README_images/scalability-robotics.png"></th>
+							</tr>
+						</table>
 					</section>
 					<section>
-						<h3>More formally!</h3>
-						<p>Comparison with deep learning framework</p>
-
-						<p class="fragment"><img width="80%" height="80%" data-src="present-10-8/cv.png" alt="Up arrow"></p>
-
-						<p class="fragment"><img width="80%" height="80%" data-src="present-10-8/drl.png" alt="Up arrow"></p>
-					</section>
-
-					<section>
-						<h3>Short Summary <span class="fragment highlight-blue"> (DRL)</span></h3>
+						<h3>Challenges</h3>
 						<ul>
-							<li>RL originates from the need for sequential decision making process</li>
-							<li>DL is analogous to one state of the "sequence"</li>
-							<li>DL allows RL to solve complex problems end-to-end</li>
+							<li>Sample Efficiency (A3C on Humanoid-Standup)</li>
+							<li>Exploration</li>
+							<li>Multi-task Transfer</li>
 						</ul>
-			
-					</section>
-
-				</section>
-
-				<section data-transition="concave">
-					<h3>Why do we care about it now?</h3>
-					<p><img width="" height="" data-src="present-10-8/care.png" alt="Up arrow"></p>
-				</section>
-
-			
-				<section data-transition="fade">
-					<section>
-						<h3>Mathematical Definitions</h3>
-						<p><img width="" height="" data-src="present-10-8/math1.png" alt="Up arrow"></p>
 					</section>
 					<section>
-						<h3>The goal of reinforcement learning</h3>
-						<p><img width="" height="" data-src="present-10-8/goal3.png" alt="Up arrow"></p>
-
+						<h3>Sim to Real Transfer Learning</h3>
+						<video data-autoplay src="10-30/simtoreal.mp4"></video>
 					</section>
-				</section>
-
-				<section data-transition="slide"  data-background-transition="zoom">
-					<section>
-						<h3>Toy Examples</h3>
-						<ol>
-							<li><span style="color: #87CEFA">Value-based:</span> Indirectly optimize policy via estimation of value function</li>
-							<li><span style="color: #87CEFA">Policy gradients:</span> Directly optimize policy by calulating gradient of policy</li>
-							<li><span style="color: #87CEFA">Actor-critic:</span> Combination of above two</li>
-						</ol>
 					
-					</section>
-					<section data-background="#4d7e65">
-						<h3>Value Iteration</h3>
-						<p><img width="80%" height="80%" data-src="present-10-8/case1.png" alt="Up arrow"></p>
-						<p style="color: black">$V^{*}_{k}(s)\leftarrow max_{a}\sum_{s'}P(s'|s,a)(R(s,a,s')+\gamma V^{*}_{k-1}(s))$</p>
-						<p style="color: black">$\pi_{k}^{*}(s)\leftarrow argmax_{a}V^{*}_{k}(s)$</p>
-					</section>
-					<section data-background="#b5533c">
-						<h3>Policy Gradients</h3>
-						<p><img width="80%" height="80%" data-src="present-10-8/case2.png" alt="Up arrow"></p>
-					</section>
-					<section data-background="#b5533c">
-						<h3>Policy Gradients</h3>
-						<br>
-						
-						<p style="text-align: left; color: black">$ U( \theta )=E[ \sum_{t=0}^{H}R(s_{t},u_{t});\pi_{\theta}]=\sum_{ \tau }P(\tau;\theta)R(\tau)$</p>
-						<br>
-						<p style="text-align: left; color: black">
-             $\bigtriangledown _{\theta}U( \theta )= \bigtriangledown _{\theta}\sum_{ \tau }P(\tau;\theta)R(\tau)=\sum_{ \tau }\bigtriangledown _{\theta}P(\tau;\theta)R(\tau) $
-             $ =\sum_{ \tau }\frac{P(\tau;\theta) }{P(\tau;\theta) } \bigtriangledown _{\theta}P(\tau;\theta)R(\tau) $
-             $=\sum_{ \tau }P(\tau;\theta)\frac{\bigtriangledown _{\theta}P(\tau;\theta) }{P(\tau;\theta) }R(\tau) $
-             $ =\sum_{ \tau }P(\tau;\theta)\bigtriangledown _{\theta}logP(\tau;\theta)R(\tau) $
-              $= \frac{1}{m} \sum_{i=1}^{m}\bigtriangledown _{\theta}logP(\tau^{(i)};\theta)R(\tau^{(i)})$
-         </p>
-					</section>
-					<section data-background="#b5533c">
-						<h3>Policy Gradients</h3>
-						<pre><code class="hljs" data-trim contenteditable>
-# Given:
-# actions - (N*T) x Da tensor of actions
-# states - (N*T) x Ds tensor of states
-# q_values – (N*T) x 1 tensor of estimated state-action values
-# Build the graph:
-logits = policy.predictions(states) # This should return (N*T) x Da tensor of action logits 
-negative_likelihoods = tf.nn.softmax_cross_entropy_with_logits(labels=actions, logits=logits) 
-weighted_negative_likelihoods = tf.multiply(negative_likelihoods, rewards)
-loss = tf.reduce_mean(weighted_negative_likelihoods)
-gradients = loss.gradients(loss, variables)
-						</code></pre>
-						<br>
-						<p style="color:black">
-$\frac{1}{m}\sum_{i=1}^{m}\sum_{t=1}^{T}\bigtriangledown _{\theta}log(\pi_{a_{i,t}}|s_{i,t};\theta)\widehat{R_{i,t}}$</p>
-					</section>
-					<section data-background="gray">
-						<h3>Actor Critic</h3>
-						<p><img width="" height="" data-src="present-10-8/case3.png" alt="Up arrow"></p>
-					</section>
-					<section>
-						<h3>What have we come so far?</h3>
-						<p><img width="" height="" data-src="present-10-8/case5.png" alt="Up arrow"></p>
-					</section>
 				</section>
+
 
 				<section data-transition="convex">
 					<section>
-						<h3>Getting Serious</h3>
+						<h3>Indoor Navigation</h3>
 					</section>
 					<section>
 						<p>Look Before You Leap:
@@ -241,133 +170,43 @@ Vision-and-Language Navigation</p>
 					  	</div>
 						<p><img width="" height="" data-src="present-10-8/rpa6.png" alt="Up arrow"></p>
 					</section>
-					<section data-background="present-10-8/rpa7.gif">
-					</section>
-					<section data-background-video="present-10-8/rpa8.mp4" data-transition="convex">
+					<section data-background="present-10-8/rpa7.gif"></section>
+					<section>
+						<h3>CVPR submission</h3>
+						<ul>
+							<li><a href="https://evalai.cloudcv.org/web/dashboard">EvalAI VLN Challenge (current rank 4th)</a></li>
+							<li><a href="">Environment Visualization</a></li>
+						</ul>
 					</section>
 
 				</section>
+
+
 				<section data-transition="convex">
 					<section>
-					<h3>My current work</h3>
+					<h3>Embodied Question Answering</h3>
 					<ul>
-						<li class="fragment highlight-blue"> Modularize unified RL interface for benchmarking important ideas</li>
-						<li class="fragment highlight-blue"> Parallelize RL codebase for faster iteration</li>
-						<li class="fragment highlight-blue"> Try new ideas on indoor navigation</li> 
+						<li class="fragment highlight-blue"> VQA: Vision + Language</li>
+						<li class="fragment highlight-blue"> Visual Navigation: Visual + Action</li>
+						<!-- <li class="fragment highlight-blue"> Situated Language Learning: Language + Action</li>  -->
+						<li class="fragment highlight-blue"> Embodied Question Answering: Vision + Language + Action</li> 
 					</ul>
+					<img height="30%" width="30%" data-src="10-30/embody.png">
 					</section>
-					<section style="text-align: left">
-						<h3>Benchmarking Efforts</h3>
-						<ul>
-							<li> Verify code correctness</li>
-							<li> Building blocks</li>
-						</ul>
-						<p>
-							<img width="45%" height="50%" data-src="present-10-8/my1.png" alt="Up arrow">
-							<img width="45%" height="50%" data-src="present-10-8/my2.png" alt="Up arrow">
-						</p>
-						<p> 
-							Vanilla DQN & 2-step unrolling DQN;
-						</p>
-					</section>
-					<section style="text-align: left">
-						<h3>Advanced DQNs</h3>
-						<p>
-							<img width="45%" height="50%" data-src="present-10-8/my3.png" alt="Up arrow">
-							<img width="45%" height="50%" data-src="present-10-8/my4.png" alt="Up arrow">
-						</p>
-						<p> 
-							Double DQN & duelling DQN;
-						</p>
-						<p>
-							<img width="45%" height="" data-src="present-10-8/my5.png" alt="Up arrow"> &nbsp; &nbsp;
-							<iframe data-src="present-10-8/pong.mp4">
-							</iframe>
-						</p>
-						<p> 
-							Prioritized Experience Replay;
-						</p>
-					</section>
-					
-				
-					<section >
-						<h4>Policy-based methods and its variance</h4>
-						<p>
-							<img width="70%" height="" data-src="present-10-8/my8.png" alt="Up arrow">
-						</p>
-						<p> 
-							<img width="%" height="" data-src="present-10-8/my10.png" alt="Up arrow">
-						</p>
-					</section>
-					<section style="text-align: left">
-						<h3>Parallelization</h3>
-						<p>
-							<ul>
-								<li> Data Parallelism</li>
-								<li> Gradient Parallelism</li>
-							</ul>
-						</p>
-						<img width="%" height="250" data-src="present-10-8/my11.png" alt="Up arrow">
-						<img width="%" height="250" data-src="present-10-8/my12.png" alt="Up arrow">
-						<img width="%" height="250" data-src="present-10-8/my13.png" alt="Up arrow">
-					</section>
-					<section style="text-align: left" data-transition="convex">
-						<h3 style="color: #87CEFA">Develop new ideas</h3>
-						<p>
-							Examples
-							<ul>
-								<li> Improve sample efficiency</li>
-								<li> Develop explorative agents</li>
-								<li> Consider tasks with sparse rewards</li>
-								<li> Multi-agent communication</li>
-							</ul>
-						</p>
-					</section>
-				</section>
 
-			
-				
-			
-				<!-- <section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section> -->
+					<section data-background-video="present-10-8/rpa8.mp4" data-transition="convex"></section>
+				</section>
+					
 
 			
 				<section style="text-align: left;">
-					<h1>THE END</h1>
+					<h3>Human Robot Interaction</h3>
 					<p>
-						- <a href="">DRL is a fast-developing research area</a> <br>
-						- <a href="">DRL is challenging</a>
+						- <a href="">DRL is interesting but requires competitive coding</a> <br>
+						- <a href="">Human robot interaction is very promising</a>
 					</p>
 					<p>
-						<img width="%" height="250" data-src="present-10-8/end1.gif" alt="Up arrow">
-						<img width="%" height="250" data-src="present-10-8/end2.gif" alt="Up arrow">
+						<video data-autoplay src="10-30/robot.mp4"></video>
 					</p>
 				</section>
 
