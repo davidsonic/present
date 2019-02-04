@@ -57,7 +57,7 @@
                         <p>Motivation: explore inherent task structure to accelerate convergence</p>
                         <ol>
 							<li><span style="color: #87CEFA">Reaching:</span> in [0,1], to encourage reaching object</li>
-							<li><span style="color: #87CEFA">Grasping:</span> in [0,0.25], non-zero if arm is grasping object</li>
+							<li><span style="color: #87CEFA">Grasping:</span> in [0,0.25], non-zero if arm is grasping</li>
 							<li><span style="color: #87CEFA">Lifting:</span> in [0,1], non-zero if arm has lifted the object</li>
 						</ol>
 
@@ -66,9 +66,9 @@
 						<h4>Modifications of adversary pipeline</h4>
 						<p>Motivation: more reasonable adversary training</p>
 						<ol>
-                            <li><span style="color: #87CEFA">Duration:</span> after lifting and lasts until the end of episode</li>
-                            <li><span style="color: #87CEFA">Perturbation success:</span> check contact force to determine if adversarial network needs update</li>
-                            <li><span style="color: #87CEFA">Determine loss:</span> weak supervision without groundtruth</li>
+                            <li><span style="color: #87CEFA">Duration:</span> after lifting and lasts until the end</li>
+                            <li><span style="color: #87CEFA">Perturbation update:</span> check contact force to determine</li>
+                            <li><span style="color: #87CEFA">Determine loss:</span> weak supervision</li>
                         </ol>
 					</section>
 					<section>
@@ -108,7 +108,7 @@
                     <section>
 						<h4>Inverse Kinematic Control</h4>
                         <ol>
-                            <li>Detect (x,y,angle) with protagonist network + 2D->3D conversion</li>
+                            <li>Detect (x,y,$\theta$) with protagonist network + 2D->3D conversion</li>
                             <li>Init scene with free camera + cartesian coordinate-> joint coordinate conversion</li>
                             <li>Perform inverse kinematic control</li>
                         </ol>
@@ -118,7 +118,7 @@
 						<h4>Training</h4>
                         <ol>
                             <li>Collect reward for protagonist policy (3 parts: reaching/grasping/lifting)</li>
-                            <li>Predict perturbation (6x1) with adversary network/apply human adversary + collect adversary loss</li>
+                            <li>Predict perturbation (6x1) with adversary network/apply human adversary + collect loss</li>
                             <li>Backpropagate reward and loss</li>
                         </ol>
 					</section>
@@ -128,7 +128,7 @@
 
 				<section data-transition="convex">
 					<section>
-					<h3>Technical Details to add</h3>
+					<h4>Technical Details to add</h4>
 					<ul>
 						<li class="fragment highlight-blue">Init object with different size/orientation/position</li>
 						<li class="fragment highlight-blue">Init with different objects</li>
