@@ -56,29 +56,18 @@
 						<h4>Refine interactive learning pipeline</h4>
                         <p>Motivation: human adversary should be comparable to simulated adversary</p>
                         <ol>
-							<li><span style="color: #87CEFA">Force control:</span> Discretization of human force and strength</li>
-							<li><span style="color: #87CEFA">Skip unsuccessful graspings:</span> Perturbations are only applied to success grasps</li>
+							<li><span style="color: #87CEFA">Force control:</span> Discretize human force and fix strength</li>
+							<li><span style="color: #87CEFA">Skip failed grasps:</span> Only present success grasps (doing)</li>
 							<li><span style="color: #87CEFA">Batch update:</span> Online learning leads to waitings</li>
 						</ol>
 
 					</section>
-					<section>
-						<h4>Verify simulated adversary learning</h4>
-						<p>Motivation: show adversary policy is improving</p>
-						<ol>
-                            <li><span style="color: #87CEFA">Duration:</span> after lifting and lasts until the end</li>
-                            <li><span style="color: #87CEFA">Perturbation update:</span> check contact force to determine</li>
-                            <li><span style="color: #87CEFA">Determine loss:</span> weak supervision</li>
-                        </ol>
-					</section>
-					<section>
 						<h4>Train adversarial policy</h4>
 						<p>Motivation: Need to be fast, because of human adversary training</p>
-                        <p><span style="color: #87CEFA">Experiment settings</span></p>
 						<ol>
                             <li>Cylinder initialized with diff sizes and orientations</li>
                             <li>3 predefined forces: no action, small upward, strong downward</li>
-                            <li>Protagonist policy fixed, only update adversary policy</li>
+                            <li>Protagonist fixed, only update adversary policy</li>
                         </ol>
 
 					</section>
@@ -88,7 +77,7 @@
                         <ol>
                             <li>Force pool: [[0 0 0 0 0 0], [0 0 -5 0 0 0], [0 0 3 0 0 0]], adv_action: 1</li>
                             <li>Force pool: [[0 0 0 0 0 0], [0 0 3 0 0 0], [0 0 -8 0 0 0]], adv_action: 2</li>
-                            <li>As training progresses, more successful perturbations</li>
+                            <li>As training progresses, less failed perturbs</li>
                         </ol>
                     </section>
 
@@ -102,7 +91,7 @@
                             <li><span style="color: #87CEFA">Simulated adversary vs Human adversary</span></li>
                             <li><span style="color: #87CEFA">Influence of simulated adversary on grasping policy</span></li>
                             <li><span style="color: #87CEFA">Influence of human adversary on grasping policy</span></li>
-                            <li><span style="color: #87CEFA">Different object params on training (size, orientation, types)</span></li>
+                            <li><span style="color: #87CEFA">Influence of different object params on training</span></li>
                             <li><span style="color: #87CEFA">Different network architectures</span></li>
                         </ol>
 					</section>
@@ -116,7 +105,7 @@
 					<ul>
 						<li class="fragment highlight-blue">Update grasping policy and verify</li>
 						<li class="fragment highlight-blue">Initialize with success grasps for user-study</li>
-						<li class="fragment highlight-blue">Plotting force distribution over time</li>
+						<li class="fragment highlight-blue">Plot force distribution over time</li>
 					</ul>
 					</section>
 
