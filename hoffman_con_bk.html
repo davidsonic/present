@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSCI699 Con Presentation by Jiali Duan</title>
+
+		<meta name="description" content="Con Presentation by Jiai Duan for CSCI699">
+		<meta name="author" content="Jiali Duan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style>
+			/* Three image containers (use 25% for four, and 50% for two, etc) */
+			.column {
+			  float: left;
+			  width: 50.0%;
+			  padding: 5px;
+			}
+
+			/* Clear floats after image containers */
+			.row::after {
+			  content: "";
+			  clear: both;
+			  display: table;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<section>
+						<h4>Cons of "Cost-Based Anticipatory Action Selection for Human-Robot Fluency"</h4>
+						<p>
+							<small>Presented by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">Jan.29th, 2020</a></small>
+						</p>
+						<small>
+							<p>Paper Information</p>
+						<ul>
+							<li>Author: Guy Hoffman and Cynthia Breazeal (2007)</li>
+                            <li>Motivation: Stop-to-go -> Anticipatory action selection</li>
+							<li>Contribution
+                            <ol>
+                                <li>A model for human-robot fluent-action meshing</li>
+                                <li>Three fluency metric hypotheses</li>
+                                <li>Analysis for Reactive Agent vs Anticipatory Agent</li>
+                            </ol>
+                            </li>
+						</ul>
+						</small>
+					</section>
+
+					<section>
+						<h3>Outline</h3>
+						<ul>
+							<li><span class="fragment highlight-red">Cons in terms of Problem Definition</span></li>
+							<li><span class="fragment highlight-red">Cons in terms of Model</span></li>
+							<li><span class="fragment highlight-red">Cons in terms of Analysis</span></li>
+							<li><span class="fragment highlight-red">Future Work</span></li>
+							<li><span class="fragment highlight-red">Q & A</span></li>
+						</ul>
+					</section>
+
+				</section>
+
+
+				<!-- Example of nested vertical slides -->
+                <section>
+
+                    <section>
+                            <h4>Cons in terms of Problem Definition</h4>
+                            <br>
+                            <ol>
+                                <li>Invovling only two agents (one robot and a human), with a shared workbench</li>
+                                <li>
+                                    <ul><span class="fragment highlight-red">Reason:</span>
+                                    <li>Multi-agent scenario?</li>
+                                    <li>Multiple workbenches?</li>
+                                </ul>
+                                </li>
+                            </ol>
+                    </section>
+
+                    <section>
+                            <h4>Cons in terms of Model</h4>
+                            <br>
+                            <ol>
+                                <li>Assumption
+                                <ul>
+                                    <li>stationary human-collaborator behavior</li>
+                                    <li>Expected cost of proto-sequence requires $h<2d_{0i}$, where h is not accessible</li>
+                                    <li>Expectation calculation assumes performing actions correctly (deterministic)</li>
+                                </ul>
+                                </li>
+                            </ol>
+                    </section>
+
+                    <section>
+                            <h4>Cons in terms of Analysis</h4>
+                            <br>
+                            <ol>
+                                <li>$h$ matters and is fixed during evaluation</li>
+                                <li><span class="fragment highlight-red">Solution:</span>
+                                <ul>
+                                    <li>h should be specific per state</li>
+                                    <li> Be learned over time as the agent collects more data regarding the turnaround time of the human teammate</li>
+                                </ul>
+                                </li>
+
+                            </ol>
+                    </section>
+
+
+                    <section>
+                        <h4>Cons in terms of Analysis</h4>
+                            <br>
+                            <ol>
+                                <li>Defects in three metric hypothesis</li>
+                                <li>
+                                <ul>
+                                    <li>A simplifying assumption that the start and end time of
+the whole task is identical for both agents</li>
+                                    <li>The team is made up of one human and one robot</li>
+                                    <li>Do not cover certain aspects of cooperative motion and physically coupled collaboration</li>
+                                </ul>
+                                </li>
+                                <li>Solution: "Evaluating Fluency in Human–Robot Collaboration"</li>
+                            </ol>
+                    </section>
+
+				</section>
+
+
+				<section style="text-align: left;">
+					<section>
+						<h4>Future Work</h4>
+						<ol>
+							<li href="">Add a discount factor in the learned state transition
+distribution -> recent moves more salient</li>
+							<li href="">h should be state-specific</li>
+                            <li href=""> Evaluate the relative effect achieved by the state transition distribution learning</li>
+                            <li href=""> Increase task complexity</li>
+						</ol>
+
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

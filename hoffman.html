@@ -4,9 +4,15 @@
 	<head>
 		<meta charset="utf-8">
 
+<<<<<<< HEAD
+		<title>CSCI699 Con Presentation by Jiali Duan</title>
+
+		<meta name="description" content="Con Presentation by Jiai Duan for CSCI699">
+=======
 		<title>Hoffman_Con Jiali Duan</title>
 
 		<meta name="description" content="Presentation by Jiali Duan for CSCI699">
+>>>>>>> 75047d0224cc8ab6a47846e00fa36d839f22b03a
 		<meta name="author" content="Jiali Duan">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,6 +66,34 @@
 					<section>
 						<h4>Cons of "Cost-Based Anticipatory Action Selection for Human-Robot Fluency"</h4>
 						<p>
+<<<<<<< HEAD
+							<small>Presented by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">Jan.29th, 2020</a></small>
+						</p>
+						<small>
+							<p>Paper Information</p>
+						<ul>
+							<li>Author: Guy Hoffman and Cynthia Breazeal (2007)</li>
+                            <li>Motivation: Stop-to-go -> Anticipatory action selection</li>
+							<li>Contribution
+                            <ol>
+                                <li>A model for human-robot fluent-action meshing</li>
+                                <li>Three fluency metric hypotheses</li>
+                                <li>Analysis for Reactive Agent vs Anticipatory Agent</li>
+                            </ol>
+                            </li>
+						</ul>
+						</small>
+					</section>
+
+					<section>
+						<h3>Outline</h3>
+						<ul>
+							<li><span class="fragment highlight-red">Cons in terms of Problem Definition</span></li>
+							<li><span class="fragment highlight-red">Cons in terms of Model</span></li>
+							<li><span class="fragment highlight-red">Cons in terms of Analysis</span></li>
+							<li><span class="fragment highlight-red">Future Work</span></li>
+							<li><span class="fragment highlight-red">Q & A</span></li>
+=======
 							<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan (Presentation for CSCI699)</a> on <a href="">Jan.29th, 2020</a></small>
 						</p>
 						<small>
@@ -79,6 +113,7 @@
 							<li><span class="fragment highlight-red">Research Topics in GAN</span></li>
 							<li><span class="fragment highlight-red">My Research Overlap with GANs</span></li>
 							<li><span class="fragment highlight-red">The End</span></li>
+>>>>>>> 75047d0224cc8ab6a47846e00fa36d839f22b03a
 						</ul>
 					</section>
 
@@ -86,6 +121,85 @@
 
 
 				<!-- Example of nested vertical slides -->
+<<<<<<< HEAD
+                <section>
+
+                    <section>
+                            <h4>Cons in terms of Problem Definition</h4>
+                            <br>
+                            <ol>
+                                <li>Invovling only two agents (one robot and a human), with a shared workbench</li>
+                                <li>
+                                    <ul><span class="fragment highlight-red">Reason:</span>
+                                    <li>Multi-agent scenario?</li>
+                                    <li>Multiple workbenches?</li>
+                                </ul>
+                                </li>
+                            </ol>
+                    </section>
+
+                    <section>
+                            <h4>Cons in terms of Model</h4>
+                            <br>
+                            <ol>
+                                <li>Assumption
+                                <ul>
+                                    <li>stationary human-collaborator behavior</li>
+                                    <li>Expected cost of proto-sequence requires $h<2d_{0i}$, where h is not accessible</li>
+                                    <li>Expectation calculation assumes performing actions correctly (deterministic)</li>
+                                </ul>
+                                </li>
+                            </ol>
+                    </section>
+
+                    <section>
+                            <h4>Cons in terms of Analysis</h4>
+                            <br>
+                            <ol>
+                                <li>$h$ matters and is fixed during evaluation</li>
+                                <li><span class="fragment highlight-red">Solution:</span>
+                                <ul>
+                                    <li>h should be specific per state</li>
+                                    <li> Be learned over time as the agent collects more data regarding the turnaround time of the human teammate</li>
+                                </ul>
+                                </li>
+
+                            </ol>
+                    </section>
+
+
+                    <section>
+                        <h4>Cons in terms of Analysis</h4>
+                            <br>
+                            <ol>
+                                <li>Defects in three metric hypothesis</li>
+                                <li>
+                                <ul>
+                                    <li>A simplifying assumption that the start and end time of
+the whole task is identical for both agents</li>
+                                    <li>The team is made up of one human and one robot</li>
+                                    <li>Do not cover certain aspects of cooperative motion and physically coupled collaboration</li>
+                                </ul>
+                                </li>
+                                <li>Solution: "Evaluating Fluency in Human–Robot Collaboration"</li>
+                            </ol>
+                    </section>
+
+				</section>
+
+
+				<section style="text-align: left;">
+					<section>
+						<h4>Future Work</h4>
+						<ol>
+							<li href="">Add a discount factor in the learned state transition
+distribution -> recent moves more salient</li>
+							<li href="">h should be state-specific</li>
+                            <li href=""> Evaluate the relative effect achieved by the state transition distribution learning</li>
+                            <li href=""> Increase task complexity</li>
+						</ol>
+
+=======
 				<section>
 					<section>
 						<h4>What's Generative Adversarial Networks</h4>
@@ -761,6 +875,7 @@
 						<h3><span class="fragment highlight-blue">Acknowledgement</span></h3>
 						<p>Many thanks to Prof. Keith Chugg, Brandon Franzke, C.-C.Jay Kuo, Stefanos Nikolaidis</p>
 						<p>Courtesy to all authors mentioned in the slides: Ian Goodfellow, Yanran Li, Binglin, Shashank, Bhargav, Jon Krohn, Francois Chollet. etc.</p>
+>>>>>>> 75047d0224cc8ab6a47846e00fa36d839f22b03a
 					</section>
 				</section>
 
