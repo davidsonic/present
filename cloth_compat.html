@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Recommendation for Fashion Compatibility by Jiali Duan</title>
+
+		<meta name="description" content="Group seminar report by Jiai Duan">
+		<meta name="author" content="Jiali Duan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style>
+			/* Three image containers (use 25% for four, and 50% for two, etc) */
+			.column {
+			  float: left;
+			  width: 50.0%;
+			  padding: 5px;
+			}
+
+			/* Clear floats after image containers */
+			.row::after {
+			  content: "";
+			  clear: both;
+			  display: table;
+			}cd
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<section>
+						<h4>Recommendation for Fashion Compatibility</h4>
+						<p>
+							<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">March.25th, 2019</a></small>
+							<small>2nd year PhD at USC, supervised by <a href="https://viterbi.usc.edu/directory/faculty/Kuo/Chung-Chieh">C.-C. Jay Kuo</a></small>
+						</p>
+						<small>
+							<p>Outline for seminar</p>
+						<ul>
+							<li><span class="fragment highlight-blue">Learning Human-robot interaction</span></li>
+							<li><span class="fragment highlight-blue">Introduction of Physical inference</span></li>
+							<li><span class="fragment highlight-blue">Learning Robot-world interaction</span></li>
+						</ul>
+						</small>
+
+					</section>
+
+				</section>
+
+
+				<section data-transition="fade">
+					<section>
+						<h4 style="text-align: center;">Learning Human-Robot Interaction</h4>
+						<small>
+							<ul>
+								<li>Infer Human Intent
+									<ul>
+										<li>Image recognition/Natural Language processing</li>
+										<li>Build computational models of human</li>
+									</ul>
+								</li>
+								<li>Interaction Aware Planning and Control
+									<ul>
+										<li>Assistive human behavior</li>
+										<li>Adversarial human behavior</li>
+										<li>How robots influence human behavior</li>
+										<li>Evolvement of robot/human behvior</li>
+									</ul>
+								</li>
+								<li>Societal Implications
+									<ul>
+										<li>Autonomous Driving</li>
+										<li>Service Robots</li>
+									</ul>
+								</li>
+
+							</ul>
+						</small>
+
+					</section>
+
+					<section style="text-align: left;">
+						<p>Case 1:</p>
+						<video data-autoplay src="physics/robot-in1.mp4"></video>
+					</section>
+
+					<section style="text-align: left;">
+						<p>Case 2:</p>
+						<video data-autoplay src="physics/robot-in2.mp4"></video>
+					</section>
+
+
+					<section style="text-align: left;">
+						<h4>Adversarial Human Behavior</h4>
+						<p style="color:dodgerblue">Motivation</p>
+						<ul>
+							<li>Works exist for cooperative human</li>
+							<li>In reality, people don't always act rationally</li>
+							<li>Explore the idea of adversarial learning</li>
+						</ul>
+
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Task Description</h4>
+						<p><span class="fragment highlight-red">Goal: </span>Planar grasping with robotic arm</p>
+						<ul>
+							<li><span class="fragment highlight-blue">Input: </span>RGB visual input</li>
+							<li><span class="fragment highlight-blue">Output: </span>Grasping action</li>
+						</ul>
+						<div class="row">
+							<div class="column">
+								<img src="physics/baxter1.png" alt="Snow" style="height: 250pt">
+						  	</div>
+						  	<div class="column">
+								<img src="physics/obj1.png" alt="Forest" style="height: 250pt">
+						  	</div>
+						</div>
+					</section>
+
+
+					<section style="text-align:left;">
+						<h4>Pipeline Overview</h4>
+						<small>
+							<ul>
+								<li>Object Detection
+									<ul>
+										<li>Input: Image observation from sensor</li>
+										<li>Output: Grasping position triplet <$x$,$y$,$\theta$></li>
+									</ul>
+								</li>
+								<li>Inverse Kinematic Control
+									<ul>
+										<li>Input: Destination location and angle</li>
+										<li>Output: Control params for controllers</li>
+									</ul>
+								</li>
+								<li>Human Interaction
+									<ul>
+										<li>If grasping fails: Reset environment</li>
+										<li>If grasping succeeds: Apply human perturbation</li>
+									</ul>
+								</li>
+								<li>Training/Inference
+									<ul>
+										<li>Input: reward</li>
+										<li>Apply: grasping policy update</li>
+									</ul>
+								</li>
+
+							</ul>
+						</small>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Problem Formulation</h4>
+						<div class="row">
+							<div class="column">
+								<img  src="physics/iros1.png" style="height:200pt">
+							</div>
+							<div class="column">
+								<small>
+									<p>Illustration of Human-robot Interaction</p>
+									<ul>
+										<li>$s \in S$: state of the world</li>
+										<li>Perform grasping based on $s$</li>
+										<li>State transition: $\mathcal{T}:S \times A^R \rightarrow \Pi(S^{+})$</li>
+										<li>$\pi^H:(s^{+},a^H)$: human action leads to $s^{++}$</li>
+										<li>$r:(s, a^R, s^+, a^H, s^{++}) \mapsto r$: Reward</li>
+									</ul>
+								</small>
+							</div>
+						</div>
+
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Human Adversary</h4>
+						<p style="font-style: italic">Adversarial setting: the robot attempts to maximize $r$, while the human wishes to minimize it</p>
+						<p style="color: red">Reward design:</p>
+						<p>$r = R^{R}(s, a^R, s^+) - \alpha R^{H}(s^+, a^H, s^{++})$</p>
+						<small>
+							<ul>
+								<li>$R^{R}(s, a^R, s^+)$: Reward received in absence of adversary</li>
+								<li>$R^{H}(s^+, a^H, s^{++})$: Penalty induced by human action</li>
+							</ul>
+						</small>
+					</section>
+
+
+					<section style="text-align:left;">
+						<h4>Training Objective</h4>
+						<p style="font-style: italic"><span class="fragment highlight-red">Goal:</span> Develop a policy $\pi^R:s \mapsto a_t^R$ that maximizes:</p>
+						<p>$\pi_*^R = argmax_{\pi^R}~{E} \left[r(s, a^R, a^H) \vert \pi^H \right]$</p>
+						<small>
+							<ul>
+								<li>$\pi^H$: Human adversarial action</li>
+								<li>$\pi^R$: Robot action</li>
+							</ul>
+						</small>
+					</section>
+
+
+					<section style="text-align:left;">
+						<h4>Algorithm Pipeline</h4>
+						<p style="font-style: italic"><span class="fragment highlight-red">Goal:</span> Develop a policy $\pi^R:s \mapsto a_t^R$ that maximizes:</p>
+						<p style="text-align: center"><img src="physics/iros2.png" alt="Forest" style="height: 250pt"></p>
+					</section>
+
+
+				</section>
+
+
+				<section data-transition="convex">
+					<section>
+						<h4>Experiment Settings</h4>
+						<p style="text-align: left">Conduct user study for human-in-the-loop training</p>
+						<small>
+							<ul>
+								<li><span class="fragment highlight-blue">User study of 25 participants</span>
+									<ul>
+										<li>The goal was to maximize robot's failures</li>
+										<li>Short tutorial with 10 trials</li>
+										<li>Each user trains one object for 50 rounds</li>
+									</ul>
+								</li>
+								<li><span class="fragment highlight-blue">Manipulated Variables</span>
+									<ul>
+										<li>Robot's learning framework</li>
+										<li>Object that user interacts with</li>
+									</ul>
+								</li>
+								<li><span class="fragment highlight-blue">Comparison</span>
+									<ul>
+										<li>Self-supervised learning</li>
+										<li>Joint train with learned adversary</li>
+										<li>Joint train with human adversary</li>
+									</ul>
+
+								</li>
+							</ul>
+						</small>
+					</section>
+					<section style="text-align:left;">
+						<h4>Hypothesis</h4>
+						<ul>
+							<li> <strong>H1: </strong><span style="font-style: italic">Robot trained with the human adversary will perform better than the robot trained in a self-supervised manner</span></li>
+							<li> <strong>H2: </strong><span style="font-style: italic">Robot trained with the human adversary will perform better than the robot trained with a simulated adversary</span></li>
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-background="#b5533c">
+						<h4>Environment Setup</h4>
+						<ul>
+							<li>Objects</li>
+							<div class="row">
+								<div class="column">
+									<img src="physics/iros3.png" alt="Forest" style="height: 150pt">
+								</div>
+								<div class="column">
+									<img src="physics/iros5.png" alt="Forest" style="height: 150pt">
+								</div>
+							</div>
+
+							<li>Human Interface</li>
+							<img src="physics/iros4.png" alt="Forest" style="height: 180pt">
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-background="#b5533c" data-transition="convex">
+						<h4>Result Analysis</h4>
+						<ul>
+							<li>Success rates w/wo random disturbances for 5 users</li>
+							<img src="physics/iros6.png" alt="Forest" style="height: 150pt">
+							<li>Success rates for all five participants </li>
+							<img src="physics/iros7.png" alt="Forest" style="height: 150pt">
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-background="#b5533c" data-transition="convex">
+						<h4>Result Analysis</h4>
+						<ul>
+							<li>Grasp success rate before/after random disturbance</li>
+							<img src="physics/iros8.png" alt="Forest" style="height: 150pt">
+							<li>Actions applied by human adversaries over time (green: robot win/red: robot lose)</li>
+							<img src="physics/iros9.png" alt="Forest" style="height: 120pt">
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-background="#b5533c" data-transition="convex">
+						<h4>Result Analysis</h4>
+						<ul>
+							<li>Objective Metrics
+								<ul>
+									<li>ANOVA (object and framework as indep variables): showed a statistically significant interaction effect
+									<li>$F(16,38) = 3.07, p = 0.002, \text{Wilks'~} \Lambda=0.19$</li>
+									<li>Post-hoc Tukey tests with Bonferroni correction showed human adversary $>$ self-supervised</li>
+									<li>w/wo random disturbances ($p=0.001$)</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section  data-background="#b5533c" data-transition="convex">
+						<h4>Subjective Metrics</h4>
+						<small>
+							<p>Participants generally agreed that: </p>
+							<ul>
+								<li>Robot learned throughout the study</li>
+								<li>And its performance improved</li>
+								<li>A Cronbach's $\alpha=0.86$ showed good internal consistency</li>
+							</ul>
+						</small>
+						<p><img src="physics/iros10.png" alt="Forest" style="height: 200pt"></p>
+					</section>
+
+
+					<section  data-background="#b5533c" data-transition="convex" style="text-align:left;">
+						<h4>Demonstration</h4>
+						<p>Before human adversarial training</p>
+						<video data-autoplay src="physics/before.mp4"></video>
+					</section>
+
+					<section  data-background="#b5533c" data-transition="convex" style="text-align:left;">
+						<h4>Demonstration</h4>
+						<p>After human adversarial training</p>
+						<video data-autoplay src="physics/after.mp4"></video>
+					</section>
+
+
+					<section data-transition="convex">
+						<h4><span class="fragment highlight-blue">Short Summary</span></h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., IROS Under Rewiew)</p></small>
+						<ul>
+							<li class="fragment highlight-blue">Train robot grasping policy with adversarial learning</li>
+							<li class="fragment highlight-blue">First paper to explore and compare simulated adversary vs human adversary</li>
+							<li class="fragment highlight-blue">Build an interactive physical interaction engine</li>
+							<li class="fragment highlight-blue">One-step reinforcement learning framework</li>
+							<li class="fragment highlight-blue">Verified two hypothesis with 25 users</li>
+						</ul>
+					</section>
+
+
+				</section>
+
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h4>Learning Robot-World Interaction</h4>
+						<small>
+							<ul>
+								<li><span class="fragment highlight-blue">Representation Learning</span>
+									<ul>
+										<li>How to represent object-centric features?</li>
+										<li>How to extract relation-centric features?</li>
+									</ul>
+								</li>
+								<li><span class="fragment highlight-blue">World Modelling</span>
+									<ul>
+										<li>How to leverage world model?</li>
+									</ul>
+								</li>
+								<li><span class="fragment highlight-blue">Interaction Modelling</span>
+									<ul>
+										<li>How to model object-object interaction?</li>
+										<li>How to predict long-term effect?</li>
+									</ul>
+								</li>
+
+							</ul>
+							<p><span class="fragment highlight-red">Physical Inference: </span>Model interaction and the world then use the world model for inference</p>
+						</small>
+
+					</section>
+
+					<section>
+						<h4>An Example</h4>
+						<p>A ball slides into a cube from an external force</p>
+						<video data-autoplay src="physics/inf2.mp4"></video>
+					</section>
+
+					<section>
+						<h4>What's physical inference</h4>
+						<p><span class="fragment highlight-red">Physical prediction about the future</span> from <span class="fragment highlight-blue">observations of the past</span></p>
+						<br>
+						<ol>
+							<li>Future prediction: interaction, trajectory</li>
+							<li>Past observation: visual sequences</li>
+						</ol>
+						<p>Extend naturally to control, planning and inference</p>
+					</section>
+
+					<section style="text-align: left;">
+						<h4>One typical pipeline</h4>
+						<p>Imagine
+that a robot needs to push a cup of coffee across the table
+to give it to a human.</p>
+						<ol>
+							<li>Segment an observed point cloud into objects</li>
+							<li>Fit a 3D model to each object segment</li>
+							<li>Execute physics simulator using physical estimates</li>
+							<li>Choose action to move cup to desired location</li>
+						</ol>
+					</section>
+
+
+					<section style="text-align: left;">
+						<h4>Problem of above pipeline</h4>
+						<ol>
+							<li>Cannot generalize to unseen objects (due to step 2)</li>
+							<li>Can break down when one stage has large error</li>
+							<li>Compounding error from previous stages</li>
+							<li>Require accurate physical estimates (due to step 3)</li>
+						</ol>
+						<p style="font-size: 20pt; font-style: italic"> A small error in the estimated liquid
+content in the cup or the friction coefficient might cause the
+robot to push it too high above its center of mass, causing
+the contents to spill. </p>
+
+					</section>
+
+					<section style="text-align: left;">
+						<h4>Motivation</h4>
+						<p style="font-size: 20pt; font-style: italic">Is it possible to replace the hand-engineered robotic
+							manipulation pipeline with a single general-purpose, <span class="fragment highlight-red">learned
+								model </span> that connects <span class="fragment highlight-blue">low-level perception </span> with <span class="fragment highlight-blue">physical prediction</span>?</p>
+						<p style="color: dodgerblue">Benefits</p>
+						<ol>
+							<li>No accurate estimate of physical parameters</li>
+							<li>Can generalize to unseen objects</li>
+							<li>Foundation for model-based control and learning</li>
+						</ol>
+					</section>
+
+					<section>
+						<h4>Summary <span class="fragment highlight-blue"> (Physical Inference)</span></h4>
+						<ul>
+							<li>Mimic human ability in reasoning physical interaction</li>
+							<li>Lay a foundation for down-stream tasks (reinforcement learning)</li>
+						</ul>
+
+					</section>
+
+				</section>
+
+				<section data-transition="concave">
+					<section>
+						<h4>Object/Interaction modelling Framework</h4>
+						<p>Motivation</p>
+						<ol>
+							<li>Learn object features</li>
+							<li>Learn object relations</li>
+							<li>Learn system features</li>
+						</ol>
+					</section>
+
+					<section style="text-align: left;">
+						<h4>Definition</h4>
+						<p style="font-size: 20pt">Graph representation: $G = \langle O,R \rangle$, where the nodes, $O$, correspond to the objects, and the edges, $R$,
+to the relations.</p>
+						<p><img width="" height="" data-src="physics/def.png"></p>
+						<small>
+							<ul>
+								<li>$b_k = \langle o_i, o_j, r_k \rangle \in B$,
+	one per relation, which correspond to each interaction's receiver,
+	sender, and relation attributes.</li>
+								<li>The relational model, $\phi_R$,
+predicts the effect of each interaction, $e_k \in E$.</li>
+								<li>The aggregation function, $a$, collects all
+effects, $e_k \in E$, that apply to each receiver object, merges them,
+and combines them with $O$ and $X$ to form a set of object model
+inputs, $c_j \in C$, one per object.</li>
+								<li>The object model, $\phi_O$,
+predicts how the interactions and dynamics influence the objects by
+applying $f_O$ to each $c_j$, and returning the results, $p_j \in
+P$.</li>
+							</ul>
+						</small>
+					</section>
+
+					<section style="text-align: left;">
+						<h4>Implementation</h4>
+						<small>
+							<ul>
+								<li>$O$ is represented as a $D_S \times N_O$ matrix</li>
+								<li>The relations are a
+triplet, $R=\langle R_r, R_s,R_a \rangle$, where $R_r$ and $R_s$ are
+$N_O \times N_R$ binary matrices. $R_a$ is a $D_R \times N_R$ matrix.</li>
+								<li>The $X$ is a $D_X \times N_O$ matrix</li>
+								<li>The marshalling function, $m$, computes the matrix products, $O R_r$
+and $O R_s$, and concatenates them with $R_a$: $ m(G) \; = \;  [ O R_r ; O R_s; R_a] \; = \; B$ . The resulting $B$ is a $(2 D_S + D_R) \times N_R$ matrix</li>
+								<li>The $B$ is input to $\phi_R$, which applies $f_R$, an MLP, to each
+column. The output of $f_R$ is a $D_E$-length vector, $e_k$, a
+distributed representation of the effects. The $\phi_R$ concatenates
+the $N_R$ effects to form the $D_E \times N_R$ effect matrix, $E$.</li>
+								<li>The $G$, $X$, and $E$ are input to $a$, which computes the $D_E \times
+N_O$ matrix product, $\bar{E} = E R_r^T$. The $\bar{E}$ is concatenated with
+$O$ and $X$: $a(G, X, E) \; = \; [ O ; X; \bar{E}] \; = \; C$. </li>
+								<li>The $C$ is input to $\phi_O$, which applies $f_O$, another MLP, to
+each of the $N_O$ columns.</li>
+							</ul>
+						</small>
+					</section>
+
+					<section style="text-align: left;">
+						<h4>Results</h4>
+						<p><img width="" height="" data-src="physics/in2.png"></p>
+						<small>
+						<p>Courtesy to Battaglia, P., Pascanu, R., Lai, M., & Rezende, D. J.et.al 2016</p>
+						</small>
+					</section>
+
+
+					<section style="text-align: left;" data-transition="convex">
+						<h4>Learning relations in a Graph</h4>
+						<p><img width="" height="" data-src="physics/in3.png"></p>
+						<small>
+							<p style="color: dodgerblue">Pipeline Overview</p>
+						<ul>
+							<li>Build graph of an object using kinematic tree</li>
+							<li>Model interaction effect with message passing propagation</li>
+							<li>Update node info with node+adjacent edge+graph feature</li>
+							<li>Update edge info with end-node+edge+graph feature</li>
+							<li>Update graph info with node+edge+graph feature</li>
+						</ul>
+						<p>Courtesy to Sanchez-Gonzalez, A., Heess, N., Springenberg, J. T., Merel, J., Riedmiller, M., Hadsell, R., & Battaglia,P.et.al 2018</p>
+						</small>
+					</section>
+
+					<section style="text-align: left;" data-transition="convex">
+						<h4>Learning Motion Dynamics</h4>
+						<p><img width="" height="" data-src="physics/se3.png"></p>
+						<small>
+							<p style="color: dodgerblue">Pipeline Overview</p>
+						<ul>
+							<li>Learn $\{SO_3,t\} \in SE3$ for rigid transformation</li>
+							<li>Learn mask for component-wise segmentation</li>
+						</ul>
+						<p>Courtesy to Byravan, Arunkumar, and Dieter F.et.al 2017</p>
+						</small>
+					</section>
+
+					<section style="text-align: left;" data-transition="convex">
+						<h4>What can we do with the model?</h4>
+						<p style="text-align:  center"><img width="" height="330 pt" data-src="physics/leap1.png"></p>
+						<small>
+							<p style="color: dodgerblue">Pipeline Overview</p>
+						<ul>
+							<li>Visual 3D indoor navigation</li>
+							<li>Generate trajectories based on model prediction</li>
+							<li>Complement model-free method</li>
+						</ul>
+						<p>Courtesy toWang, X., Xiong, W., Wang, H., & Yang Wang, W. 2018.</p>
+						</small>
+					</section>
+
+				</section>
+
+
+				<section style="text-align: left;">
+					<section>
+						<h4>THE END</h4>
+						<p>
+							- <a href="">Explore human prior for human-robot interaction</a> <br>
+							- <a href="">Model robot-world interaction is challenging</a>
+						</p>
+						<p>
+							<img width="%" height="200" data-src="physics/snatch.gif" alt="Up arrow">
+							<img width="%" height="200" data-src="physics/inf3.gif" alt="Up arrow">
+						</p>
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

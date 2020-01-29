@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Hoffman_Con Jiali Duan</title>
+
+		<meta name="description" content="Presentation by Jiali Duan for CSCI699">
+		<meta name="author" content="Jiali Duan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style>
+			/* Three image containers (use 25% for four, and 50% for two, etc) */
+			.column {
+			  float: left;
+			  width: 50.0%;
+			  padding: 5px;
+			}
+
+			/* Clear floats after image containers */
+			.row::after {
+			  content: "";
+			  clear: both;
+			  display: table;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<section>
+						<h4>Cons of "Cost-Based Anticipatory Action Selection for Human-Robot Fluency"</h4>
+						<p>
+							<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan (Presentation for CSCI699)</a> on <a href="">Jan.29th, 2020</a></small>
+						</p>
+						<small>
+							<p>Research Interests</p>
+						<ul>
+							<li>Generative Adversarial Learning</li>
+							<li>Deep Reinforcement Learning</li>
+						</ul>
+						</small>
+
+					</section>
+					<section>
+						<h3>Outline</h3>
+						<ul>
+							<li><span class="fragment highlight-red">Introduction of Generative Adversarial Networks</span></li>
+							<li><span class="fragment highlight-red">Applications of GAN in Computer Vision</span></li>
+							<li><span class="fragment highlight-red">Research Topics in GAN</span></li>
+							<li><span class="fragment highlight-red">My Research Overlap with GANs</span></li>
+							<li><span class="fragment highlight-red">The End</span></li>
+						</ul>
+					</section>
+
+				</section>
+
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h4>What's Generative Adversarial Networks</h4>
+						<p><span class="fragment highlight-red">A Counterfeiter-police game</span> between two components: <span class="fragment highlight-blue">generator and discriminator</span></p>
+						<br>
+						<ol>
+							<li>G: counterfeiter, to fool police with fake currency</li>
+							<li>D: police, to detect the counterfeit currency</li>
+						</ol>
+						<p>Competition drives both to improve, until counterfeits are indistinguishable from genuine currency</p>
+					</section>
+
+					<section>
+						<h4>Input/Output of GAN</h4>
+						<ol>
+							<li>A generator takes a random vector as input and outputs a synthetic image</li>
+							<li>A discriminator takes an image (either real or synthetic) as input and outputs real/fake</li>
+						</ol>
+						<p class="fragment"><img width="" height="" data-src="guest-lecture/gan.png" alt="Down arrow"></p>
+					</section>
+
+					<section>
+						<h3>Mathematical Formulation</h3>
+						<p>A<span class="fragment highlight-red"> min-max game</span> between generator G and discriminator D</p>
+						<p>$ min_{G}max_{D}V =E_{x\sim p_{data}(x)}[logD(x)] + E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</p>
+						<ul>
+							<li>$max_{D}V(D) = E_{x\sim p_{data}(x)}[logD(x)] + E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</li>
+							<li>$min_{G}V(G) = E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</li>
+						</ul>
+
+						<p style="text-align: left; color:deepskyblue;">Intuitively</p>
+						<ul>
+							<li>optimize D to: distinguish synthetic and real images</li>
+							<li>optimize G to: fool the discriminator best</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h3>Why GANs?</h3>
+						<ol>
+							<li>No formula for $p_{data}(x)$. Sampling from distribution</li>
+							<li>Robust to overfitting since G never sees $x$</li>
+							<li>GANs are good at capturing modes of distribution</li>
+						</ol>
+					</section>
+
+					<section style="text-align: left;">
+						<h4 style="text-align: center">Contrast with Discriminative models</h4>
+						<p style="color:deepskyblue">We've seen discriminative models for far</p>
+						<ul>
+							<li>Give image X, predict label Y</li>
+							<li>Estimate P(Y|X)</li>
+						</ul>
+						<p style="color:deepskyblue">Generative models</p>
+							<ul>
+								<li>Can model P(x)</li>
+								<li>Can generate new images</li>
+							</ul>
+
+					</section>
+
+					<section>
+						<h3>Short Summary <span class="fragment highlight-blue"> (GAN)</span></h3>
+						<ul>
+							<li>GAN consists of two components: D and G</li>
+							<li>GAN training is a dynamic process rather than a simple descent process with a fixed loss landscape</li>
+						</ul>
+
+					</section>
+
+				</section>
+
+				<section data-transition="concave">
+					<section>
+						<h3>Training Schemes</h3>
+						<p>Train Discriminator</p>
+						<p><img width="" height="" data-src="guest-lecture/trainD.png"</p>
+					</section>
+
+					<section>
+						<p>Train Generator</p>
+						<p><img width="" height="" data-src="guest-lecture/trainG.png"</p>
+					</section>
+
+					<section>
+						<p>Training algorithm</p>
+						<p><img width="" height="" data-src="guest-lecture/train-algo.png"></p>
+					</section>
+
+					<section>
+						<p>GAN sample code</p>
+						<p><a href="https://github.com/davidsonic/sample_gan_code"><img width="" height="" data-src="guest-lecture/gan-sample.png"></a></p>
+					</section>
+				</section>
+
+
+				<section data-transition="fade">
+					<section style="text-align: left;">
+						<h3 style="text-align: center;">What can GAN do?</h3>
+						<p>Image to Image translation (CycleGAN)</p>
+						<p><img width="" height="" data-src="guest-lecture/cycleGAN2.gif" alt="Up arrow"></p>
+						<p>Facial Expression Synthesis (GANimation)</p>
+						<p><img width="" height="" data-src="guest-lecture/ganimation2.png" alt="Up arrow"></p>
+					</section>
+					<section style="text-align: left;">
+						<p>Multi-domain translation (StarGAN)</p>
+						<p><img width="" height="" data-src="guest-lecture/stargan1.png" alt="Up arrow"></p>
+						<p>Pose conditioned generation (PoseGAN)</p>
+						<p><img width="" height="" data-src="guest-lecture/poseGAN2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align: left;">
+						<p>Video to Video Generation (VideoGAN)</p>
+						<p><img width="" height="" data-src="guest-lecture/videoGAN1.gif" alt="Up arrow"></p>
+
+					</section>
+
+					<section style="text-align:left;">
+						<p>Interactive Editing (SC-FEGAN/GAN-Dissect)</p>
+						<div class="row">
+							<div class="column">
+								<img src="guest-lecture/scfegan1.gif" alt="Snow" style="width:100%">
+						  	</div>
+						  	<div class="column">
+								<img src="guest-lecture/gandiseect1.gif" alt="Forest" style="width:79%">
+						  	</div>
+						</div>
+					</section>
+
+					<section style="text-align:left;">
+						<p>3D model generation</p>
+						<p><img width="" height="" data-src="guest-lecture/3DGAN.png" alt="Up arrow"></p>
+						<p>Music Generation</p>
+						<audio controls>
+						  <source src="guest-lecture/MuseGAN.mp3" type="audio/mpeg">
+						</audio>
+					</section>
+
+					<section style="text-align:left;">
+						<p>Image Generation (Progressive GAN/BigGAN)</p>
+						<video data-autoplay src="guest-lecture/progressiveGAN.mp4"></video>
+					</section>
+
+					<section style="text-align:left;">
+						<p>DeepFake</p>
+						<video data-autoplay src="guest-lecture/deepfake.mp4"></video>
+					</section>
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom">
+					<section style="text-align:left;">
+						<h3 style="text-align: center;">Research of GANs</h3>
+						<p>Difficulty and Problems</p>
+						<ol>
+							<li><span style="color: #87CEFA">Gradient issues: </span> Vanishing/Exploding gradients</li>
+							<li><span style="color: #87CEFA">Objective functions: </span> Unstable, Non-convergence</li>
+							<li><span style="color: #87CEFA">Mode-collapse: </span> Lack of diversity</li>
+						</ol>
+
+					</section>
+					<section data-background="#4d7e65" style="text-align: left;">
+						<h3>Difficulty 1: Gradient issues</h3>
+						<p>$ V(D,G) =E_{x\sim p_{data}(x)}[logD(x)] + E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</p>
+						<p>$\nabla_{\theta_{G}}V(G,D)=\nabla_{\theta_{G}}E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</p>
+						<br/>
+						<p style="text-align: left;">Recall that:</p>
+						<p>$\nabla_{a}log(1-\sigma(a))=\frac{-\nabla_{a}\sigma (a)}{1-\sigma (a)}= \frac{-\sigma(a)(1-\sigma(a))}{1-\sigma(a)}=-\sigma(a)$</p>
+						<p style="text-align: left;">Therefore:</p>
+						<p>$\nabla_{\theta_{G}}V(G,D)=-D(G(z))=0$, when D is confident</p>
+					</section>
+
+					<section data-background="#4d7e65" style="text-align: left;">
+						<h3>Difficulty 1: Gradient issues</h3>
+						<p>Can be proved that Nash-equilibrium of this min-max game is:</p>
+						<ul>
+							<li>$P_{data(x)}= P_{gen(x)}$</li>
+							<li>$D(x)=\frac{1}{2}$</li>
+						</ul>
+					</section>
+					<section data-background="#b5533c" style="text-align: left;">
+						<h3>Difficulty 2: Objective Function</h3>
+						<p>Optimizing $E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$: </p>
+						<p>when D is optimal, minimizing the loss is equal to minimizing the JS divergence (Arjovsky & Bottou, 2017)</p>
+						<p>$L(D^{*}, g(\theta))=2JSD(P_{r}|P_{g})-2log2$</p>
+					</section>
+
+					<section data-background="#b5533c" style="text-align: left;">
+						<h3>Difficulty 2: Objective Function</h3>
+						<p>The JS divergence for the two distributions $P_{r}$ and $P_{g}$ is (almost) always log2 because $P_{r}$ and $P_{g}$ hardly can overlap (Arjovsky & Bottou, 2017, Theorem 2.1~2.3)</p>
+						<p>Thus, will give arise to gradient vanishing problem</p>
+					</section>
+
+					<section data-background="#b5533c" style="text-align: left;">
+						<h3>Difficulty 2: Objective Function</h3>
+						<p>One suggest solution is: $E_{z\sim p_{z}(z)}[-log(D(G(z)))]$</p>
+						<p>However, when D is optimal, minimizing the loss is equal to minimizing the KL divergence meanwhile maximizing the JS divergence (Arjovsky & Bottou, 2017, Theorem 2.5):</p>
+						<p>$KL(P_{g}|P_{r})-2JSD(P_{g}|P_{r})$</p>
+					</section>
+					<section data-background="#b5533c" style="text-align: left;">
+						<h3>Difficulty 2: Objective Function</h3>
+						<p>$KL(P_{g}|P_{r})-2JSD(P_{g}|P_{r})$</p>
+						<p>Note that KL and JSD have the same sign</p>
+						<p>Thus, will give rise to unstable training</p>
+					</section>
+					<section data-background="white" style="text-align: left;">
+						<h3>Difficulty 3: Mode Missing problem</h3>
+						<p><img width="" height="" data-src="guest-lecture/mode-collapse1.png" alt="Up arrow"></p>
+					</section>
+					<section data-background="white" style="text-align: left;">
+						<h3>Difficulty 3: Mode Missing problem</h3>
+						<p>But let’s consider one extreme case where G is trained extensively without updates to D. The generated images will converge to find the optimal image x* that fool D the most.</p>
+						<p>$x^{*}=argmax_{x}D(x)$</p>
+						<p>In this extreme, x* will be independent of z.</p></p>
+					</section>
+					<section>
+						<h3>Short Summary</h3>
+						<ol>
+							<li class="fragment highlight-blue">GAN is not seeking a minimum, but equilibrium between two forces</li>
+							<li class="fragment highlight-blue">GAN suffers the problem of gradient issues</li>
+							<li class="fragment highlight-blue">GAN is hard to train because of instability</li>
+							<li class="fragment highlight-blue">Mode-collapse is a serious problem in GAN training</li>
+						</ol>
+					</section>
+				</section>
+
+				<section data-transition="convex">
+					<section>
+						<h3>Tackle GAN Issues</h3>
+						<ul>
+							<li>Provide Partial or Fine-Grained Guidance</li>
+							<li>Encoder Incorporated</li>
+							<li>Design New Optimization Functions</li>
+						</ul>
+					</section>
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">Conditional GANs (Mirza & Osindero, 2014)</p>
+						<p style="text-align: center;"><img width="50%" height="" data-src="guest-lecture/conditional1.png" alt="Up arrow"></p>
+						<p>$V(D,G) = E_{x\sim p_{data}(x)}[logD(x|y)] + E_{z\sim p_{z}(z)}[log(1-D(G(z|y)))]$</p>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">Improved GAN (Salimans et al., 2016)</p>
+						<p style="text-align: center;"><img width="50%" height="" data-src="guest-lecture/improve-gan1.png" alt="Up arrow"></p>
+						<ul>
+							<li>$|| E_{x\sim p_{data}(x)}f(x) - E_{z\sim p_{z}(z)}f(G(z))||_{2}$</li>
+							<li>Minibatch-training</li>
+						</ul>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">iGAN (Zhu et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/iGAN1.png" alt="Up arrow"></p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/iGAN2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">Pix2pix (Isola et al., 2017)</p>
+						<p style="text-align: center;"><img width="55%" height="" data-src="guest-lecture/pix2pix1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">Pix2pix (Isola et al., 2017)</p>
+						<p style="text-align: center;"><img width="55%" height="" data-src="guest-lecture/pix2pix3.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;">
+						<h4>Provide Partial Guidance</h4>
+						<p style="text-align: left;">Pix2pix (Isola et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/pix2pix2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="convex">
+						<h4>Provide Fine-grained Guidance</h4>
+						<p style="text-align: left;">LAPGAN (Denton et al., 2015)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/lapgan1.png" alt="Up arrow"></p>
+						<ul>
+							<li>Not end-to-end</li>
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-transition="convex">
+						<h4>Provide Fine-grained Guidance</h4>
+						<p style="text-align: left;">Matching-aware Discriminator (Reed et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/textgan1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="convex">
+						<h4>Provide Fine-grained Guidance</h4>
+						<p style="text-align: left;">Matching-aware Discriminator (Reed et al., 2016)</p>
+						<ul>
+							<li>$\hat{x} = G(z,h)$, generated image</li>
+							<li>$s_{r} = D(x,h)$, {real image, right text}</li>
+							<li>$s_{z} = D(x,\hat{h})$, {real image, wrong text}</li>
+							<li>$s_{f} = D(\hat{x}, h)$, {fake image, wrong text}</li>
+
+						</ul>
+						<p>$L_{D} = log(s_{r}) + (log(1-s_{z}) + log(1-s_{f}))/2$</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="convex">
+						<h4>Provide Fine-grained Guidance</h4>
+						<p style="text-align: left;">StackGAN (Zhang et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/stackgan1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="convex">
+						<h4>Provide Fine-grained Guidance</h4>
+						<p style="text-align: left;">StackGAN (Zhang et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/stackgan2.png" alt="Up arrow"></p>
+						<ul>
+							<li>Multi-stage training</li>
+						</ul>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h4>Architecture Design</h4>
+						<p style="text-align: left;">DCGAN (Radford et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/dcgan1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h4>Architecture Design</h4>
+						<p style="text-align: left;">DCGAN (Radford et al., 2016)</p>
+						<ul>
+							<li>Replace pooling to strided-convolution in D and fractional-strided conv in G</li>
+							<li>Use BatchNorm in both</li>
+							<li>Remove fc layers</li>
+							<li>Use ReLU for all except output (use Tanh) in G, use LeakyReLU for D</li>
+						</ul>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h4>Architecture Design</h4>
+						<p style="text-align: left;">DCGAN (Radford et al., 2016)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/dcgan2.png" alt="Up arrow"></p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h4>Architecture Design</h4>
+						<p style="text-align: left;">pix2pix (Isola et al., 2017)</p>
+						<p style="text-align: center;"><img width="60%" height="" data-src="guest-lecture/pix2pix4.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h4>Architecture Design</h4>
+						<p style="text-align: left;">GP-GAN (Wu et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/GPGAN1.png" alt="Up arrow"></p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="fade-in">
+						<h4>Tackle Mode Missing</h4>
+						<p>Illustrations</p>
+						<p style="text-align: center;"><img width="50%" height="" data-src="guest-lecture/mode1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="fade-out">
+						<h4>Tackle Mode Missing</h4>
+						<p>Symptoms</p>
+						<ul>
+							<li>Imbalanced modes lead to lack of diversity</li>
+							<li>Instability</li>
+						</ul>
+						<br/>
+						<br />
+
+						<video data-autoplay src="guest-lecture/mode-collapse2.mp4"></video>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="fade">
+						<h4>Tackle Mode Missing</h4>
+						<p>Reasons</p>
+						<p style="text-align: center;"><img width="80%" height="" data-src="guest-lecture/mode-reg1.png" alt="Up arrow"></p>
+						<p>$min_{G}max_{D} \neq max_{D}min_{G}$</p>
+						<ul>
+							<li>D in inner loop: convergence to correct distribution</li>
+							<li>G in inner loop: place all mass on most likely point</li>
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-transition="fade">
+						<h4>Tackle Mode Missing</h4>
+						<p>Mode Regularized GANs (Che et al., 2017)</p>
+						<p>Add an additional Encoder to:</p>
+						<ul>
+							<li>“enforce” $P_{r}$ and $P_{g}$ overlap</li>
+							<li>“build a bridge” between fake data and real data</li>
+						</ul>
+						<p>The end result is: fake data becomes harder to recognize</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="fade">
+						<h4>Tackle Mode Missing</h4>
+						<p>Mode Regularized GANs (Che et al., 2017)</p>
+						<small>
+						<ul>
+							<li>G: $E_{z\sim p_{z}(z)}[-log(D(G(z)))] + E_{x\sim p_{data}}[\lambda_{1}d(x,G\circ E(x)) + \lambda_{2}logD(G\circ E(x))]$</li>
+							<li>E: $E_{x\sim p_{data}}[\lambda_{1}d(x,G\circ E(x)) + \lambda_{2}logD(G\circ E(x))]$</li>
+							<li>D: same as vanilla GAN</li>
+						</ul>
+						</small>
+					</section>
+
+					<section style="text-align:left;" data-transition="fade">
+						<h4>Tackle Mode Missing</h4>
+						<p>Mode Regularized GANs (Che et al., 2017)</p>
+						<p>Also proposed Manifold-Diffusion GANs (MDGAN)</p>
+						<ul>
+							<li>Manifold step: Try to match the generation manifold and real data manifold</li>
+							<li>Diffusion step: Try to distribute the probability mass on the generation manifold fairly according to the real data distribution</li>
+						</ul>
+					</section>
+
+					<section style="text-align:left;" data-transition="fade">
+						<h4>Tackle Mode Missing</h4>
+						<p>Mode Regularized GANs (Che et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/mode-reg2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="zoom">
+						<h4>Tackle Mode Missing</h4>
+						<p>Energy-based GANs (Zhao et al., 2017)</p>
+						<p>Digression: Another view of GAN</p>
+						<p>$ V(D,G) = E_{x\sim p_{data}(x)}[logD(x)] + E_{z\sim p_{z}(z)}[log(1-D(G(z)))]$</p>
+						<br />
+						<p>$ V(D,G) = E_{x\sim p_{data}(x)}[log(1-D(x))] + E_{z\sim p_{z}(z)}[logD(G(z))]$</p>
+						<p>Fake =1, Real =0</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="zoom">
+						<h4>Tackle Mode Missing</h4>
+						<p>Energy-based GANs (Zhao et al., 2017)</p>
+						<p>Modified Game Plans</p>
+						<ul>
+							<li>Generator will	try	to	fake samples with low values</li>
+							<li>Discriminator will try to assign high scores to fake</li>
+						</ul>
+						<small>
+							<p>$D^{*} = argmin_{D}E_{x\sim p_{data}(x)}[log(1-D(x))] + E_{z\sim p_{z}(z)}[logD(G(z))]$</p>
+						</small>
+					</section>
+
+					<section style="text-align:left;" data-transition="zoom">
+						<h4>Tackle Mode Missing</h4>
+						<p>Energy-based GANs (Zhao et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/energy-gan1.png" alt="Up arrow"></p>
+						<p>$D(x)=||Dec(Enc(x))-x||_{MSE}$</p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="concave">
+						<h4>Review Mode Missing Problem</h4>
+						<p>DiscoGAN (Kim et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/discogan1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="concave">
+						<h4>Review Mode Missing Problem</h4>
+						<p>CycleGAN (Zhu et al., 2017)/DualGAN (Yi et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/cyclegan2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="concave">
+						<h4>Review Mode Missing Problem</h4>
+						<p>CycleGAN (Zhu et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/cyclegan3.png" alt="Up arrow"></p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>Wasserstein-1 Distance (Earth-Mover Distance):</p>
+						<p>$W(P_{r},P_{g})=inf_{\gamma \sim \Pi (P_{r},P_{g})}E_{(x,y)\sim \gamma}||x-y||$</p>
+						<p>Why is it superior than KL or JS Divergence?</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>$W(P_{r},P_{g})=inf_{\gamma \sim \Pi (P_{r},P_{g})}E_{(x,y)\sim \gamma}||x-y||$</p>
+						<p>Intuitively, $\gamma(x,y)$ indicates how much "mass" must be transported from x to y in order to transform
+						the distribution from $P_{r}$ to $P_{g}$</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/wgan1.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>Continuous and everywhere differentiable</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/wgan2.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>By applying the Kantorovich-Rubinstein duality (Villani, 2008), Wasserstein GANs becomes:</p>
+						<p>$min_{G}max_{D} E_{x\sim P_{r}}[D(x)] - E_{\hat{x}\sim P_{g}}[D(\hat{x})]$</p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>$min_{G}max_{D} E_{x\sim P_{r}}[D(x)] - E_{\hat{x}\sim P_{g}}[D(\hat{x})]$</p>
+						<p>However, above equation requires that D must satisfy 1-Lipschitz continuity:</p>
+						<p>$|f(x_{1})-f(x_{2})|\leq K|x_{1}-x_{2}|$</p>
+
+						<p>To satisfy this, WGAN enforces the weights of D to lie in a compact space [-c,c]</p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p>WGAN removes sigmoid layer in D, because it's regression now!</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/wgan3.png" alt="Up arrow"></p>
+					</section>
+
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/wgan4.png" alt="Up arrow"></p>
+					</section>
+
+					<section style="text-align:left;" data-transition="slide">
+						<h3>Design Objective Function</h3>
+						<p>Wasserstein GANs (Arjovsky et al., 2017)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/wgan5.png" alt="Up arrow"></p>
+					</section>
+
+
+					<section>
+						<h3><span class="fragment highlight-blue">Short Summary</span></h3>
+						<ul>
+							<li>Have discussed how to provide partial or fine-grained guidance</li>
+							<li>Some mode-collapse solutions</li>
+							<li>Loss function design is important</li>
+							<li>GAN research is math-oriented</li>
+						</ul>
+
+					</section>
+
+
+				</section>
+
+
+
+				<section data-transition="convex">
+					<section>
+					<h3>What have I done with GANs?</h3>
+					<ul>
+						<li class="fragment highlight-blue">PortraitGAN for Portrait Manipulation</li>
+						<li class="fragment highlight-blue">Robust Adversarial Robotic Grasping</li>
+					</ul>
+					</section>
+
+					<section data-transition="concave">
+						<h4>Portrait Manipulation</h4>
+						<p style="text-align: left;">PortraitGAN (Duan et al., 2018)</p>
+						<p style="text-align: left; color:deepskyblue;">Motivation</p>
+						<ul>
+							<li class="fragment highlight-blue">Simultaneous expression and style transfer</li>
+							<li class="fragment highlight-blue">Interactive manipulation "in the wild"</li>
+							<li class="fragment highlight-blue">Enforce texture consitency constraint</li>
+							<li class="fragment highlight-blue">High resolution generation (512x512)</li>
+							<li class="fragment highlight-blue">Use One generator for multi-domain translation</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>Portrait Manipulation</h4>
+						<p style="text-align: left;">PortraitGAN (Duan et al., 2018)</p>
+						<p style="text-align: center;"><img width="120%" height="" data-src="guest-lecture/portraitGAN1.png" alt="Up arrow"></p>
+					</section>
+
+					<section>
+						<h4>Portrait Manipulation</h4>
+						<p style="text-align: left;">PortraitGAN (Duan et al., 2018)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/portraitgan3.png" alt="Up arrow"></p>
+					</section>
+
+					<section>
+						<h4>Portrait Manipulation</h4>
+						<p style="text-align: left;">PortraitGAN (Duan et al., 2018)</p>
+						<p style="text-align: center;"><img width="" height="" data-src="guest-lecture/portraitgan2.png" alt="Up arrow"></p>
+					</section>
+
+					<section data-transition="convex">
+						<h4>Robust Adversarial Grasping </h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., 2019)</p></small>
+						<p style="text-align: left; color:deepskyblue;">System Overview</p>
+						<ul>
+							<li class="fragment highlight-blue">Train robot grasping policy with adversarial learning</li>
+							<li class="fragment highlight-blue">First paper to explore and compare simulated adversary vs human adversary</li>
+							<li class="fragment highlight-blue">Build an interactive physical interaction engine</li>
+							<li class="fragment highlight-blue">One-step reinforcement learning framework</li>
+							<li class="fragment highlight-blue">Verified two hypothesis with 25 users</li>
+						</ul>
+					</section>
+
+					<section data-transition="convex">
+						<h4>Robust Adversarial Grasping </h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., 2019)</p></small>
+						<p>
+							<img width="%" height="350" data-src="guest-lecture/robot1.png" alt="Up arrow">
+							<img width="%" height="350" data-src="guest-lecture/robot2.png" alt="Up arrow">
+						</p>
+						<p>$r=R^{R}(s,a^{R},s^{+})-\alpha R^{H}(s^{+},a^{H},s^{++})$</p>
+
+					</section>
+
+					<section data-transition="convex">
+						<h4>Robust Adversarial Grasping </h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., 2019)</p></small>
+						<p>
+							<img width="%" height="350" data-src="guest-lecture/robot3.png" alt="Up arrow">
+						</p>
+					</section>
+
+					<section data-transition="convex">
+						<h4>Robust Adversarial Grasping </h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., 2019)</p></small>
+						<p>
+							<img width="%" height="" data-src="guest-lecture/robot4.png" alt="Up arrow">
+						</p>
+					</section>
+
+
+					<section data-transition="convex">
+						<h4>Robust Adversarial Grasping </h4>
+						<small><p style="text-align: left;">Robot Learning via Human Adversarial Games (Duan et al., 2019)</p></small>
+							<img width="60%" height="" data-src="guest-lecture/robot5.png" alt="Up arrow">
+						<small><p>https://github.com/davidsonic/Interactive-mujoco_py</p></small>
+					</section>
+
+
+				</section>
+
+
+
+
+
+				<section style="text-align: left;">
+					<section>
+						<h3>THE END</h3>
+						<p>
+							- <a href="">GAN is a milestone in computer vision</a> <br>
+							- <a href="">GAN is a fun and fast-developing research field</a>
+						</p>
+						<p>
+							<img width="%" height="200" data-src="guest-lecture/progressiveGAN2.gif" alt="Up arrow">
+							<img width="%" height="200" data-src="guest-lecture/BigGAN2.gif" alt="Up arrow">
+							<img width="%" height="200" data-src="guest-lecture/video2video2.gif" alt="Up arrow">
+						</p>
+					</section>
+					<section>
+						<h3><span class="fragment highlight-blue">Acknowledgement</span></h3>
+						<p>Many thanks to Prof. Keith Chugg, Brandon Franzke, C.-C.Jay Kuo, Stefanos Nikolaidis</p>
+						<p>Courtesy to all authors mentioned in the slides: Ian Goodfellow, Yanran Li, Binglin, Shashank, Bhargav, Jon Krohn, Francois Chollet. etc.</p>
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
