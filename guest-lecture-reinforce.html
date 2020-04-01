@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSCI699 Guest-Lecture by Jiali Duan</title>
+
+		<meta name="description" content="Group Seminar by Jiai Duan on
+		reinforcement learning">
+		<meta name="author" content="Jiali Duan">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h3>CSCI699 Guest-Lecture on Reinforcement Learning</h3>
+					<p>
+						<small>Created by <a href="http://mcl-lab.usc.edu:1313">Jiali Duan</a> on <a href="">Mar 31st, 2020</a></small>
+					</p>
+                        <ul>
+							<li>Recap of RL formulations</li>
+							<li>An interdisciplinary example</li>
+							<li>Competitive self-play</li>
+						</ul>
+				</section>
+
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h3>What's reinforcement learning?</h3>
+						<p><span class="fragment highlight-red">End-to-end </span> learning for <span class="fragment highlight-blue">Sequential Decision Making</span></p>
+						<br>
+						<p class="fragment"><img width="" height="" data-src="present-10-8/end-to-end.png" alt="Down arrow"></p>
+
+					</section>
+					<section>
+						<h4>What does end-to-end mean for</h4>
+						<h4>Sequential Decision Making?</span></h4>
+						<p class="fragment"><img width="60%" height="60%" data-src="present-10-8/sequential-making.png" alt="Down arrow"></p>
+					</section>
+					<section>
+						<h3>More formally!</h3>
+						<p>Comparison with deep learning framework</p>
+
+						<p class="fragment"><img width="80%" height="80%" data-src="present-10-8/cv.png" alt="Up arrow"></p>
+
+						<p class="fragment"><img width="80%" height="80%" data-src="present-10-8/drl.png" alt="Up arrow"></p>
+					</section>
+
+					<section>
+						<h3>Short Summary <span class="fragment highlight-blue"> (DRL)</span></h3>
+						<ul>
+							<li>RL originates from the need for sequential decision making process</li>
+							<li>DL is analogous to one state of the "sequence"</li>
+							<li>DL allows RL to solve complex problems end-to-end</li>
+						</ul>
+
+					</section>
+
+				</section>
+
+				<section data-transition="concave">
+					<h3>Why do we care about it now?</h3>
+					<p><img width="" height="" data-src="present-10-8/care.png" alt="Up arrow"></p>
+				</section>
+
+
+				<section data-transition="fade">
+					<section>
+						<h3>Mathematical Notations</h3>
+						<p><img width="" height="" data-src="present-10-8/math1.png" alt="Up arrow"></p>
+					</section>
+					<section>
+						<h3>The goal of reinforcement learning</h3>
+						<p><img width="" height="" data-src="present-10-8/goal3.png" alt="Up arrow"></p>
+
+					</section>
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom">
+					<section>
+						<h3>Categorization</h3>
+						<ol>
+							<li><span style="color: #87CEFA">Value-based:</span> Indirectly optimize policy via estimation of value function</li>
+							<li><span style="color: #87CEFA">Policy gradients:</span> Directly optimize policy by calulating gradient of policy</li>
+							<li><span style="color: #87CEFA">Actor-critic:</span> Combination of above two</li>
+						</ol>
+
+					</section>
+					<section data-background="#4d7e65">
+						<h3>Value Iteration</h3>
+						<p><img width="80%" height="80%" data-src="present-10-8/case1.png" alt="Up arrow"></p>
+					</section>
+					<section data-background="#b5533c">
+						<h3>Policy Gradients</h3>
+						<p><img width="80%" height="80%" data-src="present-10-8/case2.png" alt="Up arrow"></p>
+					</section>
+					<section data-background="#b5533c">
+						<h3>Policy Gradients</h3>
+						<br>
+
+						<p style="text-align: left; color: black">$ U( \theta )=E[ \sum_{t=0}^{H}R(s_{t},u_{t});\pi_{\theta}]=\sum_{ \tau }P(\tau;\theta)R(\tau)$</p>
+						<br>
+						<p style="text-align: left; color: black">
+             $\bigtriangledown _{\theta}U( \theta )= \bigtriangledown _{\theta}\sum_{ \tau }P(\tau;\theta)R(\tau)=\sum_{ \tau }\bigtriangledown _{\theta}P(\tau;\theta)R(\tau) $
+             $ =\sum_{ \tau }\frac{P(\tau;\theta) }{P(\tau;\theta) } \bigtriangledown _{\theta}P(\tau;\theta)R(\tau) $
+             $=\sum_{ \tau }P(\tau;\theta)\frac{\bigtriangledown _{\theta}P(\tau;\theta) }{P(\tau;\theta) }R(\tau) $
+             $ =\sum_{ \tau }P(\tau;\theta)\bigtriangledown _{\theta}logP(\tau;\theta)R(\tau) $
+              $= \frac{1}{m} \sum_{i=1}^{m}\bigtriangledown _{\theta}logP(\tau^{(i)};\theta)R(\tau^{(i)})$
+         </p>
+					</section>
+					<section data-background="#b5533c">
+						<h3>Policy Gradients</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+# Given:
+# actions - (N*T) x Da tensor of actions
+# states - (N*T) x Ds tensor of states
+# q_values – (N*T) x 1 tensor of estimated state-action values
+# Build the graph:
+logits = policy.predictions(states) # This should return (N*T) x Da tensor of action logits
+negative_likelihoods = tf.nn.softmax_cross_entropy_with_logits(labels=actions, logits=logits)
+weighted_negative_likelihoods = tf.multiply(negative_likelihoods, rewards)
+loss = tf.reduce_mean(weighted_negative_likelihoods)
+gradients = loss.gradients(loss, variables)
+						</code></pre>
+						<br>
+						<p style="color:black">
+$\frac{1}{m}\sum_{i=1}^{m}\sum_{t=1}^{T}\bigtriangledown _{\theta}log(\pi_{a_{i,t}}|s_{i,t};\theta)\widehat{R_{i,t}}$</p>
+					</section>
+					<section data-background="gray">
+						<h3>Actor Critic</h3>
+						<p><img width="" height="" data-src="present-10-8/case3.png" alt="Up arrow"></p>
+					</section>
+					<section>
+						<h3>What have we come so far?</h3>
+						<p><img width="" height="" data-src="present-10-8/case5.png" alt="Up arrow"></p>
+					</section>
+				</section>
+
+				<section data-transition="convex">
+					<section>
+						<h3>Getting Serious</h3>
+					</section>
+					<section>
+						<p>Look Before You Leap:
+Bridging Model-Free and Model-Based
+Reinforcement Learning for Planned-Ahead
+Vision-and-Language Navigation</p>
+					</section>
+					<section>
+						<h3>Task description</h3>
+						<p><img width="" height="" data-src="present-10-8/rpa1.png" alt="Up arrow"></p>
+					</section>
+                    <section data-background="present-10-8/rpa7.gif"></section>
+					<section>
+						<h3>Model Pipeline</h3>
+						<p><img width="" height="" data-src="present-10-8/rpa2.png" alt="Up arrow"></p>
+					</section>
+                    <section>
+						<h3>Components</h3>
+						<img width="" height="150" data-src="present-10-8/rpa5.png" alt="Up arrow">
+						<img width="" height="150" data-src="present-10-8/rpa4.png" alt="Up arrow">
+						<pre><code class="hljs" data-trim contenteditable>
+							# Recurrent policy model
+							e(t,i)=tf.matmul(h(t-1).transpose(),w(i))
+							a(t,i)=tf.exp(e(t,i))/tf.reduce_sum(tf.exp(e(t,k)), axis=1)
+							c(t)=tf.reduce_sum(a(t,i)*w(i))
+							h(t)=LSTM(h(t-1),[c(t),s(t),a(t-1)])
+
+							# Environment model
+							s(t+1)=fransition(fproj(st,at))
+							r(t+1)=freward(fproj(st,at))
+						</code></pre>
+					</section>
+                    <section>
+						<h3>Model Learning</h3>
+
+						<ul>
+                            <li><h4>Two step training process</h4>
+                                <ul>
+                                    <li> Pretrain environment model
+                                    <li> Freeze environment model and train policy model</li>
+                                </ul>
+                            </li>
+						</ul>
+						<pre><code class="hljs" data-trim contenteditable>
+							# Imitation learning
+							Train environment model with Randomized teacher poclicy;
+							Pick demonstration policy with P=0.95;
+							Pick Bernouli Meta policy with P=0.05;
+
+							l_transition=E[s'(t+1)-s(t+1)]
+							l_reward=E[r'(t+1)-r(t+1)]
+
+							# Policy learning
+							r(st,at)=distance(s(t))-distance(s(t+1))
+							R(st,at)=discounted total sum of r
+							Perform REINFORCE algorithm on R
+						</code></pre>
+					</section>
+					<section>
+						<h3>Result</h3>
+                        <small><a href="http://mcl-lab.usc.edu:3000/trajectory.html">Course Project of Jiali Duan</a></small>
+					</section>
+
+					<section data-transition="convex">
+                        <h3>Summary</h3>
+                        <div class="fragment">
+						<ul>
+							<li class="fragment highlight-blue">Combine model-free and model-based method via "imagination"</li>
+							<li class="fragment highlight-blue">Integrate vision with language instruction for indoor navigation </li>
+						</ul>
+					</div>
+					</section>
+
+				</section>
+				<section data-transition="convex">
+					<section>
+					<h3>Competitive Self-Play</h3>
+                        <iframe data-src="rl-guest/self-play.mp4" ></iframe> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <iframe data-src="rl-guest/hide-seek.mp4"></iframe>
+					</section>
+					<section style="text-align: left">
+                        <h3>Motivation and Contribution</h3>
+						<ul>
+                            <li class="fragment highlight-blue"> Auto-curricula induced by competitive self-play</li>
+                            <li class="fragment highlight-blue"> Emergent behavior induced by this auto-curricula</li>
+                            <li class="fragment highlight-blue"> Successful transfer learning from this auto-curricula</li>
+					    </ul>
+					</section>
+                    <section style="text-align: left">
+                        <h3>Training Pipeline</h3>
+						<ul>
+                            <li class="fragment highlight-blue"> Shaped dense reward for locomotion skill learning</li>
+                            <li class="fragment highlight-blue"> Two separate PPO optimization process</li>
+                            <li class="fragment highlight-blue"> Dense reward annealing and Opponent sampling</li>
+					    </ul>
+					</section>
+                    <section style="text-align: left">
+                        <h3>A brief intro about TRPO & PPO</h3>
+						<ul>
+                            <li class="fragment highlight-blue"> PPO inherits from TRPO and simplifies</li>
+                            <li class="fragment highlight-blue"> PPO is a model-free off-policy actor-critic method</li>
+                            <li class="fragment highlight-blue"> PPO can solve continuous control problem</li>
+					    </ul>
+					</section>
+                    <section style="text-align: left">
+                        <h3>TRPO as constrained optimization</h3>
+                        <img width="60%"  data-src="rl-guest/trpo1.png" alt="Up arrow">
+					</section>
+                    <section style="text-align: left">
+                        <h3>TRPO objective & constraint</h3>
+                        <img width="60%"  data-src="rl-guest/trpo2.png" alt="Up arrow">
+					</section>
+                    <section style="text-align: left">
+                        <h3>TRPO pseudo-code</h3>
+                        <img width="60%" data-src="rl-guest/trpo3.png" alt="Up arrow">
+					</section>
+
+					<section style="text-align: left">
+						<h3>Extensions</h3>
+                        <ul>
+                            <li class="fragment highlight-blue"> Hide-and-Seek extends Self-Play into multi-agent scenario</li>
+                            <li class="fragment highlight-blue"> Hide-and-Seek adds an exploration term</li>
+                            <li class="fragment highlight-blue"> Hide-and-Seek uses a more comprehensive policy network</li>
+					    </ul>
+					</section>
+
+					<section style="text-align: left">
+						<h3>Policy-Network Overview</h3>
+                        <img width="60%"  data-src="rl-guest/extend1.png" alt="Up arrow">
+					</section>
+					<section style="text-align: left">
+						<h3>Intrinsice Module</h3>
+                        <img width="60%"  data-src="rl-guest/ICM.png" alt="Up arrow">
+					</section>
+					<section style="text-align: left" data-transition="convex">
+						<h3 style="color: #87CEFA">Summary</h3>
+							<ul>
+								<li> More "comprehensive reward"</li>
+								<li> More "data driven"</li>
+							</ul>
+					</section>
+				</section>
+
+				<section style="text-align: left;">
+					<h3>THE END</h3>
+					<p>
+						- <a href="">DRL is promising when combined with robotics</a> <br>
+						- <a href="">DRL combined with HRI is our research interests</a>
+					</p>
+                    <iframe data-src="rl-guest/after.mp4" ></iframe> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <iframe data-src="rl-guest/interactive-demo.mp4"></iframe>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
